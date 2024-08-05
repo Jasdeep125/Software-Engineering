@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Details</title>
+</head>
+<body>
+    <h2>Account Details</h2>
+    <p>Account Type: {{ account.account_type }}</p>
+    <p>Current Balance: {{ account.balance }}</p>
+    <h3>Recent Transactions</h3>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.date }} - {{ transaction.transaction_type }}: {{ transaction.amount }}</li>
+        {% empty %}
+            <li>No transactions yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
