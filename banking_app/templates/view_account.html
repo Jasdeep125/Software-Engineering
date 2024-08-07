@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Details</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view_account.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <form method="post" action="{% url 'request_checkbook' account.id %}">
+        {% csrf_token %}
+        <button type="submit">Request Checkbook</button>
+    </form>
+
+    <h2>Account Details</h2>
+    <p><strong>Account Number:</strong> {{ account.account_number }}</p>
+    <p><strong>Account Type:</strong> {{ account.get_account_type_display }}</p>
+    <p><strong>Balance:</strong> ${{ account.balance }}</p>
+
+    <h3>Recent Transactions</h3>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.date }} - {{ transaction.transaction_type }} - ${{ transaction.amount }}</li>
+        {% empty %}
+            <li>No transactions found</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'customer_dashboard' %}">Customer Dashboard</a></p>
+</div>
+
+</body>
+</html>

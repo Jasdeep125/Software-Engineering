@@ -1,0 +1,37 @@
+<!-- create_account.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create_account.css' %}">
+</head>
+<body>
+    <h1>Create Account</h1>
+    <h1>Welcome, {{ request.user.first_name }}</h1>
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="customer">Customer:</label>
+        <select name="customer" required>
+            {% for customer in customers %}
+            <option value="{{ customer.id }}">{{ customer.username }}</option>
+            {% endfor %}
+        </select>
+        <label for="account_type">Account Type:</label>
+        <select name="account_type" required>
+            {% for choice in account_type_choices %}
+            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Create Account</button>
+    </form>
+
+    <a href="{% url 'admin_dashboard' %}">Back to Dashboard</a>
+</body>
+</html>
