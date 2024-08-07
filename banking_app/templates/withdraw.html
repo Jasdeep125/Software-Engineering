@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Withdraw</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/withdraw.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ request.user.first_name }}</h1>
+
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+
+        <h2>Withdraw from Account: {{ account.account_number }}</h2>
+        
+        <form method="post" class="withdraw-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" id="amount" step="0.01" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Withdraw</button>
+        </form>
+
+        <a href="{% url 'customer_dashboard' %}" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>

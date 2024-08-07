@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h1>
+
+        <h2>Account Details</h2>
+        <p><strong>Account Number:</strong> {{ account.account_number }}</p>
+        <p><strong>Account Type:</strong> {{ account.get_account_type_display }}</p>
+        <p><strong>Balance:</strong> ${{ account.balance }}</p>
+        
+        <h3>Actions</h3>
+        <div class="actions">
+            <form action="{% url 'deposit' account.id %}" method="get"><button type="submit">Deposit</button></form>
+            <form action="{% url 'withdraw' account.id %}" method="get"><button type="submit">Withdraw</button></form>
+            <form action="{% url 'transfer' %}" method="get"><button type="submit">Transfer</button></form>
+            <form action="{% url 'view_account' account.id %}" method="get"><button type="submit">View Transactions</button></form>
+            <form action="{% url 'request_checkbook' account.id %}" method="get"><button type="submit">Request Checkbook</button></form>
+        </div>
+
+        <form action="{% url 'logout' %}" method="post" class="logout-form">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
